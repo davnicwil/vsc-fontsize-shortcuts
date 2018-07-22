@@ -105,6 +105,11 @@
           "type": "number",
           "description": "The increment or decrement step for a font size change",
           "default": 1
+        },
+        "fontshortcuts.useWorkspaceSettings": {
+          "type":  "boolean",
+          "description": "Whether to use and update the editor font size from Workspace settings, rather than Global settings",
+          "default": false
         }
       }
     },

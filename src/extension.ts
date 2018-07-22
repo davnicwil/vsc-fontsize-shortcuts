@@ -24,9 +24,10 @@ export function activate(context: ExtensionContext) {
     const step = config.get<number>("fontshortcuts.step");
     const newSize = Math.min(maxFontSize, Math.round(fontSize + step));
     const newLineHeight = Math.min(maxFontSize, Math.round(newSize * relativeLineHeight));
+    const useGlobalSettings = !config.get<boolean>("fontshortcuts.useWorkspaceSettings", false);
     if (newSize === fontSize) return;
-    if (! terminal) config.update(lineHeightProperty, newLineHeight, true);
-    return config.update(fontSizeType, newSize, true);
+    if (! terminal) config.update(lineHeightProperty, newLineHeight, useGlobalSettings);
+    return config.update(fontSizeType, newSize, useGlobalSettings);
   }
 
   async function decreaseFontSize(terminal: boolean) {
@@ -41,9 +42,10 @@ export function activate(context: ExtensionContext) {
     const step = config.get<number>("fontshortcuts.step");
     const newSize = Math.max(minFontSize, Math.round(fontSize - step));
     const newLineHeight = Math.min(maxFontSize, Math.round(newSize * relativeLineHeight));
+    const useGlobalSettings = !config.get<boolean>("fontshortcuts.useWorkspaceSettings", false);
     if (newSize === fontSize) return;
-    if (! terminal) config.update(lineHeightProperty, newLineHeight, true);
-    return config.update(fontSizeType, newSize, true);
+    if (! terminal) config.update(lineHeightProperty, newLineHeight, useGlobalSettings);
+    return config.update(fontSizeType, newSize, useGlobalSettings);
   }
 
   async function resetFontSize(terminal: boolean) {
@@ -63,10 +65,11 @@ export function activate(context: ExtensionContext) {
       maxFontSize,
       Math.round(defaultFontSize * relativeLineHeight)
     );
+    const useGlobalSettings = !config.get<boolean>("fontshortcuts.useWorkspaceSettings", false);
     if (defaultFontSize === null) {
       try {
-        if (! terminal) await config.update(lineHeightProperty, undefined, true);
-        return await config.update(fontSizeType, undefined, true);
+        if (! terminal) await config.update(lineHeightProperty, undefined, useGlobalSettings);
+        return await config.update(fontSizeType, undefined, useGlobalSettings);
       } catch (e) {
         // swallow errors
         return;
@@ -78,8 +81,8 @@ export function activate(context: ExtensionContext) {
       defaultFontSize >= minFontSize &&
       defaultFontSize <= maxFontSize
     ) {
-      if (! terminal) config.update(lineHeightProperty, defaultLineHeight, true);
-      return config.update(fontSizeType, defaultFontSize, true);
+      if (! terminal) config.update(lineHeightProperty, defaultLineHeight, useGlobalSettings);
+      return config.update(fontSizeType, defaultFontSize, useGlobalSettings);
     }
 
     window.showErrorMessage(

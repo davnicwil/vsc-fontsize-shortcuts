@@ -23,12 +23,14 @@ You can configure the following settings:
 * **fontshortcuts.defaultFontSize**: The default editor font size used for a reset. (default: 15)
 * **fontshortcuts.defaultTerminalFontSize**: The default terminal font size used for a reset. (default: 15)
 * **fontshortcuts.step**: The step for each font size increment/decrement. (default: 1)
+* **fontshortcuts.useWorkspaceSettings**: Whether to use and update the editor font size from Workspace settings, rather than Global settings (default: false)
 
 ```json
 {
   "fontshortcuts.defaultFontSize": 15,
   "fontshortcuts.defaultTerminalFontSize": 15,
-  "fontshortcuts.step": 1
+  "fontshortcuts.step": 1,
+  "fontshortcuts.useWorkspaceSettings": false
 }
 ```
 
